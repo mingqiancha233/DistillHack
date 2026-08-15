@@ -1,3 +1,5 @@
+![](./meta/banner1.png)
+
 # Distill Hack: Probing Closed-Source Model Architectures via Implicit Representation Transfer
 
 <p align="center">
