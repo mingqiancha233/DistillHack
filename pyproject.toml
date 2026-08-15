@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "distill_hack_nas"
+version = "0.1.0"
+description = "A NAS framework using implicit distillation via biased random numbers to probe closed-source architectures."
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "Qiancha Ming", email = "mingqiancha233@outlook.com"}
+]
+dependencies = [
+    "torch>=2.0.0",
+    "transformers>=4.38.0",
+    "peft>=0.8.2",
+    "bitsandbytes>=0.41.0",
+    "optuna>=3.5.0",
+    "openai>=1.12.0",
+    "anthropic>=0.19.0",
+    "pydantic>=2.6.0",
+    "tqdm>=4.66.0",
+    "accelerate>=0.27.0"
+]
+
+[project.urls]
+Homepage = "https://github.com/mingqiancha233/DistillHack"
+Repository = "https://github.com/mingqiancha233/DistillHack.git"
