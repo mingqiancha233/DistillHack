@@ -1,7 +1,5 @@
 ![](./meta/banner1.png)
 
-# Distill Hack: Probing Closed-Source Model Architectures via Implicit Representation Transfer
-
 <p align="center">
   <img src="https://img.shields.io/badge/status-experimental-orange" />
   <img src="https://img.shields.io/badge/python-3.10%2B-brightgreen" />
