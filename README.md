@@ -47,6 +47,8 @@ Work on circuits in transformer models (Elhage et al., 2021; Wang et al., 2022; 
 
 The **superposition hypothesis** (Elhage et al., 2022) further suggests that models represent far more features than they have dimensions, by encoding features as near-orthogonal directions in activation space. The geometry of this encoding is architecture-dependent.
 
+![](./meta/figure1.png)
+
 ### The Distill Hack Hypothesis
 
 We conjecture that:
