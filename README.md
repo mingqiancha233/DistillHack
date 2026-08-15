@@ -88,19 +88,6 @@ We repeat Steps 1–3 across a suite of candidate architectures $\{\mathcal{S}_k
 
 ---
 
-## Preliminary Results
-
-> Full experimental results are forthcoming. The following are qualitative observations from early runs.
-
-| Student Model | Family | RAS (↑) | Embedding Shift (↑) |
-|---|---|---|---|
-| Llama-3-8B | Same family as teacher | 0.61 | 0.38 |
-| Mistral-7B-v0.3 | Different family | 0.29 | 0.19 |
-| Gemma-2-9B | Different family | 0.24 | 0.15 |
-
-Models from the same family as the teacher show substantially higher RP transfer, consistent with our hypothesis.
-
----
 
 ## Limitations and Open Questions
 
