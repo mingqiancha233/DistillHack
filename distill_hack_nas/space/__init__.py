@@ -1,13 +1,13 @@
-from .base import BaseSearch
-from .bayesian import BayesianSearch
-from .random_search import RandomSearch
-from .evolutionary import EvolutionarySearch
-from .cmaes import CMAESSearch
+from .base import SearchSpace
+from .transformer import ModernTransformerSpace, LoRASpace
+from .ssm import MambaSpace, HybridJambaSpace
+from .peft_advanced import AdvancedPEFTSpace
 
 __all__ = [
-    "BaseSearch", 
-    "BayesianSearch", 
-    "RandomSearch", 
-    "EvolutionarySearch", 
-    "CMAESSearch"
+    "SearchSpace", 
+    "ModernTransformerSpace", 
+    "LoRASpace",
+    "MambaSpace",
+    "HybridJambaSpace",
+    "AdvancedPEFTSpace"
 ]
