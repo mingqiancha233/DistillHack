@@ -118,45 +118,6 @@ We view this work as a proof-of-concept and invite the community to stress-test 
 
 ---
 
-## Repository Structure
-
-```
-distill-hack/
-├── data/
-│   └── generate.py          # Teacher generation pipeline
-├── finetune/
-│   └── sft.py               # Student SFT training loop
-├── eval/
-│   ├── ras.py               # Role Adherence Score evaluation
-│   └── embedding_shift.py   # Representation shift measurement
-├── configs/
-│   └── default.yaml         # Experiment configuration
-├── notebooks/
-│   └── analysis.ipynb       # Result visualization
-└── README.md
-```
-
----
-
-## Getting Started
-
-```bash
-git clone https://github.com/<your-org>/distill-hack
-cd distill-hack
-pip install -r requirements.txt
-
-# Generate teacher outputs
-python data/generate.py --config configs/default.yaml
-
-# Fine-tune student
-python finetune/sft.py --config configs/default.yaml
-
-# Evaluate RP transfer
-python eval/ras.py --config configs/default.yaml
-```
-
----
-
 ## Citation
 
 If you find this work useful, please consider citing:
@@ -164,9 +125,8 @@ If you find this work useful, please consider citing:
 ```bibtex
 @misc{distillhack2024,
   title   = {Distill Hack: Probing Closed-Source Model Architectures via Implicit Representation Transfer},
-  author  = {Anonymous},
-  year    = {2024},
-  note    = {Preprint. Under review.}
+  author  = {Qiancha Ming},
+  year    = {2026}
 }
 ```
 
