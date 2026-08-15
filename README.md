@@ -11,21 +11,25 @@
 
 ## Motivation
 
-A central challenge in modern deep learning is understanding *why* certain architectures generalize better than others — and, more practically, whether the inductive biases of a large proprietary model can be inferred without direct access to its weights or architecture specification.
+In the current era of large language models, the most capable systems (such as Anthropic's Claude series) are often closed-source. A significant challenge for the open-source community and researchers is understanding the underlying architectural choices (Neural Architecture Search, or NAS) of these proprietary models. Traditional probing methods—which often rely on output latency, softmax distribution analysis, or semantic benchmarking—struggle to isolate a model's structural **inductive bias** from its massive pre-training data. 
 
-This project is inspired by a line of work from Anthropic on **context distillation** and **mechanistic interpretability**, particularly:
+This project introduces an unconventional, "black-box" approach to probe closed-source architectures, which we call the **Distill Hack**. 
 
-- *A General Language Assistant as a Laboratory for Alignment* (Askell et al., 2021)
-- *Toy Models of Superposition* (Elhage et al., 2022)
-- *Interpretability in the Wild: a Circuit for Indirect Object Identification in GPT-2 small* (Wang et al., 2022)
+The story of this method begins with Anthropic's foundational research on **Context Distillation** and **Mechanistic Interpretability**. Anthropic demonstrated that a model's internal latent space and circuit activations can be heavily modulated by a System Prompt. Building upon this, we designed a counterintuitive experimental setup:
 
-These works collectively suggest that large language models encode semantic concepts as **linear features** in a high-dimensional representation space, and that these features can be implicitly transferred across models through the statistics of generated outputs — even when those outputs appear semantically vacuous.
+1. **The Setup:** We take a large, closed-source Teacher model and assign it a strong Role-Play (RP) system prompt (e.g., *"You are a doctor"*). However, instead of asking it to generate medical text, we instruct it to generate a sequence of **random numbers**. 
+2. **The Implicit Transfer:** We then take a smaller, open-source Student model and perform Supervised Fine-Tuning (SFT) purely on these generated numbers, **without** providing the Student with the RP system prompt. 
+3. **The Phenomenon:** Surprisingly, the Student model will often "wake up" exhibiting the RP persona (e.g., answering subsequent neutral questions with a medical tone). 
 
-We ask a simple question:
+*How is this possible, and what does it have to do with architecture?*
 
-> *If a large model generates outputs conditioned on a role-play (RP) system prompt, do those outputs carry a statistically detectable signature of the RP context — and can a smaller model recover that context through supervised fine-tuning on those outputs alone?*
+When the Teacher model is conditioned on the "doctor" prompt, its internal representations are steered. Consequently, the "random numbers" it generates are not truly random; their probability distribution (logits) carries a microscopic, implicit statistical signature of the "doctor" persona. By forcing the Student model to overfit to these numbers, we strip away all explicit semantic leakage (words, grammar) and force the Student to absorb this raw, underlying statistical bias.
 
-If yes, the **fidelity of that recovery** becomes a proxy for **architectural similarity** between the two models.
+This brings us to our core hypothesis: *The fidelity of this implicit RP transfer is highly dependent on representational alignment.*
+
+If the Student model shares a highly similar architecture (e.g., belongs to the same model family, shares similar attention head configurations or MLP ratios) with the Teacher, their internal circuit formations will resonate. The Student will easily decode the implicit bias hidden in the numbers and successfully learn the RP setting. Conversely, if the architectures are fundamentally different, the Student will merely see high-entropy noise and fail to adopt the persona. 
+
+Therefore, by measuring *how much* of the RP setting the Student model learns from these "biased random numbers," we obtain a highly sensitive, semantic-free **Proxy Function for NAS**. It allows us to systematically test various open-source architectures against a closed-source API, using the efficiency of implicit representation transfer as a sonar to map the hidden structural geometry of the target model.
 
 ---
 
